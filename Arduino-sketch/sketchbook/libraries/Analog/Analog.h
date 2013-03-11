@@ -1,6 +1,6 @@
 /*
   Analog.h
-  2012 Brian Lavery.  
+  2012 Brian Lavery. 
 
 
 */
@@ -11,7 +11,7 @@
 #include <inttypes.h>
 
 ///////////////////////////////////////////////////////
-// CLASS Analog:  A background ANALOG reading engine 
+// CLASS Analog:  A background ANALOG reading engine
 // No blocking for 100 uSec (as standard call analogRead() does).
 // Maintains a live array of all analog values, at about 600uSec update cycle.
 // A single Analog object handles all analog inputs, exc a4 & a5 which are reserved for i2c
@@ -37,7 +37,7 @@ class Analog
     uint8_t _currentPin;
     void _measureVCC(void);
     void _captureForced(uint8_t pin);
-    void _startNextCapture(void);  
+    void _startNextCapture(void); 
     uint16_t _checkCapture(void);
     uint16_t _value[8];
     uint16_t _setPoint[8];

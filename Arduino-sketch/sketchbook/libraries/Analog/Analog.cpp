@@ -15,16 +15,9 @@
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-  * 
-  * 
-NON-BLOCKING ANALOG READS
-600uSec latency
-Driven from run() in loop()
-* 
-
 */
 
-#include "wiring_private.h"
+#include <wiring_private.h>
 #include "Analog.h"
 
 
@@ -49,7 +42,7 @@ void Analog::begin(void)
 
 void Analog::begin(uint8_t pin)
 {
-    _measureVCC();                            
+    _measureVCC();                           
     _captureForced(pin);                        // read initial incoming i2c volts.
     _currentPin = 0;                            // reset to start at a0
     _startNextCapture();                        // start up round robin reading
@@ -62,7 +55,7 @@ void Analog::_captureForced(uint8_t pin)
     // ANY analog, even 4/5
     // blocks - waits for result. Only intended for initial job.
     // stores into the usual place in array.
-    uint16_t valu; 
+    uint16_t valu;
     if (pin > 7)
         return;
     ADMUX = (DEFAULT << 6) | pin;              // tell adc to capture a4
@@ -71,7 +64,7 @@ void Analog::_captureForced(uint8_t pin)
     while ((valu = _checkCapture()) == 0xFFFF) // do we have a finished result?
         ;                                      // wait
     _value[pin] = valu;                         // store a4 (i2c pin)
-    
+   
 }
 
 void Analog::_startNextCapture(void)
@@ -121,7 +114,7 @@ void Analog::_measureVCC(void)
     while ((result = _checkCapture()) == 0xFFFF)
            ;                                                  // wait until done
     ADMUX = (DEFAULT << 6);                                   // Aref to default for every future read
-    Vcc = 1125300L / result;                                  // Calculate Vcc (in mV); 
+    Vcc = 1125300L / result;                                  // Calculate Vcc (in mV);
     return;                                                   // 1125300 = 1.1*1023*1000
 }
 
@@ -131,7 +124,7 @@ int Analog::logicalRead(uint8_t pin)
         return 0;
     return (_value[pin] >= _setPoint[pin]);
 }
-    
+   
 int Analog::read(uint8_t pin)       // analog value from stored array
 {
     if (pin>7)
@@ -144,7 +137,7 @@ void Analog::setPoint(uint8_t pin, int setpoint)
     if (pin <= 7)
         _setPoint[pin] = setpoint & 0x03FF;
 }
-    
+   
 void Analog::run(void)
 {
     // call repeatedly in loop()
@@ -155,5 +148,4 @@ void Analog::run(void)
             _startNextCapture();                // and promptly start the next!
         }
 }
-
 
