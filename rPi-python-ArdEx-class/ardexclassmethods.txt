@@ -1,0 +1,35 @@
+ArdEx Class: 
+
+# SETUP (write) commands
+setPinAsOutput(dpin)
+setPinAsServo(dpin)
+setPinAsQuadEncoder(apin)
+setPinAsCounter(apin)
+setPullup(dpin, lohi)    
+analogWriteSetpoint(apin, value)
+encoderWriteDebounce(apin, value)
+encoderEnableAnalog(apin)
+infraredInEnable(dpin)
+
+# WRITE commands
+digitalWrite(dpin, lohi)
+digitalWrite4(dpin1, lohi1, lohi2, lohi3, lohi4)
+servoWrite(dpin, value)
+pwmWrite(dpin, value)
+pulseGen(dpin, ????)
+flagWrite(reg, value)
+
+# READ commands
+digitalRead(dpin)
+digitalRead16()
+analogRead(apin)
+analogReadVcc()
+analogLogicalRead(apin)
+encoderRead(apin)
+infraredRead(dpin)
+flagRead(reg)
+
+
+version 0.2 
+Dec 2012 (strictly ALPHA status)
+BLAVERY
